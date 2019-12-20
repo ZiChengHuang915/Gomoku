@@ -15,7 +15,7 @@ public class Gomoku {
    
    byte board[][];
    byte player = BLACK;
-   int gameMode = 3; // 1 for human vs ai, 2 for human vs human
+   int gameMode = 1; // 1 for human vs ai, 2 for human vs human
    int bestMoveRow, bestMoveCol, lastMoveRow, lastMoveCol;
    
    int aiDepth = 3;
@@ -212,6 +212,7 @@ public class Gomoku {
                resetGame();
             } else {
                long startTime = System.nanoTime();
+               System.out.println("\nThinking...");
                findBestMove(true, aiDepth); // ai/black is the maximizer
                placePiece(bestMoveRow, bestMoveCol, player);
                System.out.println("Time elapsed for thinking: " + ((System.nanoTime() - startTime)/1000000) + "ms");
