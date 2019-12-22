@@ -18,7 +18,7 @@ public class Gomoku {
    int gameMode = 1; // 1 for human vs ai, 2 for human vs human
    int bestMoveRow, bestMoveCol, lastMoveRow, lastMoveCol;
    
-   int aiDepth = 3;
+   int aiDepth = 4;
    long timeOutMS = 1000000;
    
    public Gomoku (GomokuGUI gui) {
@@ -338,17 +338,17 @@ public class Gomoku {
          score += getBoardScore(boardWithVirtualMove, 4);
          score += getBoardScore(boardWithVirtualMove, 3);
          score += getBoardScore(boardWithVirtualMove, 2);
-         //score += getBoardScore(boardWithVirtualMove, 5);
+         score += getBoardScore(boardWithVirtualMove, 5);
          
          return score;
       } else {
       
-         byte tempBoard[][] = new byte[NUMROW][NUMCOL];
-         for (int i = 0; i < NUMROW; i++) {
-            for (int j = 0; j < NUMCOL; j++) {
-               tempBoard[i][j] = boardWithVirtualMove[i][j];
-            }
-         }
+         // byte tempBoard[][] = new byte[NUMROW][NUMCOL];
+//          for (int i = 0; i < NUMROW; i++) {
+//             for (int j = 0; j < NUMCOL; j++) {
+//                tempBoard[i][j] = boardWithVirtualMove[i][j];
+//             }
+//          }
       
          if (isMaximizer) {
             int bestValue = -1000000000;
@@ -373,7 +373,7 @@ public class Gomoku {
             perimeterLoop:
             for (int i = 0; i < NUMROW; i++) {
                for (int j = 0; j < NUMCOL; j++) {
-                  if (besidesPlayedSquare(i, j, tempBoard) && !adjacentLastPlayed(i, j, movePlayedRow, movePlayedCol)) {            
+                  if (besidesPlayedSquare(i, j, boardWithVirtualMove) && !adjacentLastPlayed(i, j, movePlayedRow, movePlayedCol)) {            
                      boardWithVirtualMove[i][j] = BLACK;
                      bestValue = Math.max(bestValue, minimax(boardWithVirtualMove, !isMaximizer, depth - 1, alpha, beta, i, j));  
                      boardWithVirtualMove[i][j] = EMPTY;
@@ -409,7 +409,7 @@ public class Gomoku {
             perimeterLoop:
             for (int i = 0; i < NUMROW; i++) {
                for (int j = 0; j < NUMCOL; j++) {
-                  if (besidesPlayedSquare(i, j, tempBoard) && !adjacentLastPlayed(i, j, movePlayedRow, movePlayedCol)) {             
+                  if (besidesPlayedSquare(i, j, boardWithVirtualMove) && !adjacentLastPlayed(i, j, movePlayedRow, movePlayedCol)) {             
                      boardWithVirtualMove[i][j] = WHITE;
                      bestValue = Math.min(bestValue, minimax(boardWithVirtualMove, !isMaximizer, depth - 1, alpha, beta, i, j)); 
                      boardWithVirtualMove[i][j] = EMPTY;                 
