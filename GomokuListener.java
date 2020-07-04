@@ -19,7 +19,10 @@ public class GomokuListener implements MouseListener
          JLabel label = (JLabel) objectClicked;		
          int row = gui.getRow(label);
          int column = gui.getColumn (label);
-         game.play(row, column); 
+         try {
+            game.play(row, column); 
+         } catch (InterruptedException e) {       
+         }
       }
    
    }

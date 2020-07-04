@@ -42,6 +42,32 @@ public class Gomoku {
       }
       player = BLACK;
       placePiece(7, 7, (byte)BLACK);
+      
+      // placePiece(6, 6, player);
+   //       placePiece(6, 7, player);
+   //       placePiece(8, 7, player);
+   //       placePiece(7, 6, player);
+   //       placePiece(7, 8, player);
+   //       placePiece(5, 8, player);
+   //       placePiece(8, 5, player);
+   //       placePiece(7, 5, player);
+   //       placePiece(6, 9, player);
+   //       placePiece(4, 9, player);
+   //       placePiece(3, 10, player);
+   //       placePiece(7, 4, player);
+   //       placePiece(7, 3, player);
+   //       placePiece(9, 6, player);
+   //       placePiece(5, 10, player);
+   //       placePiece(4, 11, player);
+   //       placePiece(4, 10, player);
+   //       placePiece(2, 10, player);
+   //       placePiece(6, 10, player);
+   //       placePiece(7, 10, player);
+   //       placePiece(6, 12, player);
+   //       placePiece(6, 11, player);
+   //       placePiece(5, 11, player);
+   //       placePiece(3, 9, player);
+      //placePiece(8, 8, player);
    }
    
    public void takeTurn() {
@@ -123,7 +149,6 @@ public class Gomoku {
          for (int j = 0; j < NUMCOL - INAROW + 1; j++) {
             sum = getSumDownRight(checkBoard, INAROW, i, j);
             if (sum == BLACK * INAROW) { // black win
-               System.out.println(i + " " + j);
                return BLACK;
             } else if (sum == WHITE * INAROW) { // white win
                return WHITE;
@@ -165,7 +190,7 @@ public class Gomoku {
       return false;
    }
    
-   public boolean besidesPlayedSquare(int row, int column, byte board[][]) {
+   public boolean besidesPlayedSquare(int row, int column, byte board[][]) { // perimeter check
       if (board[row][column] == EMPTY) {
          for (int i = row - 1; i <= row + 1; i++) {
             for (int j = column - 1; j <= column + 1; j++) {
@@ -194,7 +219,7 @@ public class Gomoku {
    }
    
    /////////////////////////////////////////////////////////////////////////////
-   public void play (int row, int column) {
+   public void play (int row, int column) throws InterruptedException {
       System.out.println();
       
       if (gameMode == 1) {
@@ -257,15 +282,9 @@ public class Gomoku {
          for (int j = 0; j < NUMCOL - inARow + 1; j++) {
             sum = getSumHorizontal(board, inARow, i, j);
             if (sum == BLACK * inARow) { // black win
-               totalSum += Math.pow(10, inARow + 0.5);
+               totalSum += Math.pow(10, inARow);
             } else if (sum == WHITE * inARow) { // white win
-               if (inARow == 4) {
-                  totalSum -= Math.pow(10, inARow + 2);
-               } else if (inARow == 3) {
-                  totalSum -= Math.pow(10, inARow + 1);
-               } else {
-                  totalSum -= Math.pow(10, inARow);
-               }
+               totalSum -= Math.pow(10, inARow);
             }
          }
       }
@@ -274,16 +293,11 @@ public class Gomoku {
          for (int j = 0; j < NUMCOL; j++) {
             sum = getSumVertical(board, inARow, i, j);
             if (sum == BLACK * inARow) { // black win
-               totalSum += Math.pow(10, inARow + 0.5);
+               totalSum += Math.pow(10, inARow);
             } else if (sum == WHITE * inARow) { // white win
-               if (inARow == 4) {
-                  totalSum -= Math.pow(10, inARow + 2);
-               } else if (inARow == 3) {
-                  totalSum -= Math.pow(10, inARow + 1);
-               } else {
-                  totalSum -= Math.pow(10, inARow);
-               }
+               totalSum -= Math.pow(10, inARow);
             }
+         
          }
       } 
       
@@ -291,15 +305,9 @@ public class Gomoku {
          for (int j = 0; j < NUMCOL - INAROW + 1; j++) {
             sum = getSumDownRight(board, inARow, i, j);
             if (sum == BLACK * inARow) { // black win
-               totalSum += Math.pow(10, inARow + 0.5);
+               totalSum += Math.pow(10, inARow);
             } else if (sum == WHITE * inARow) { // white win
-               if (inARow == 4) {
-                  totalSum -= Math.pow(10, inARow + 2);
-               } else if (inARow == 3) {
-                  totalSum -= Math.pow(10, inARow + 1);
-               } else {
-                  totalSum -= Math.pow(10, inARow);
-               }
+               totalSum -= Math.pow(10, inARow);
             }
          }
       }
@@ -308,28 +316,35 @@ public class Gomoku {
          for (int j = 0; j < NUMCOL - INAROW + 1; j++) {
             sum = getSumUpRight(board, inARow, i, j);
             if (sum == BLACK * inARow) { // black win
-               totalSum += Math.pow(10, inARow + 0.5);
+               totalSum += Math.pow(10, inARow);
             } else if (sum == WHITE * inARow) { // white win
-               if (inARow == 4) {
-                  totalSum -= Math.pow(10, inARow + 2);
-               } else if (inARow == 3) {
-                  totalSum -= Math.pow(10, inARow + 1);
-               } else {
-                  totalSum -= Math.pow(10, inARow);
-               }
+               totalSum -= Math.pow(10, inARow);
             }
+         
          }
       }
       
       return (int) totalSum;
+      
+       // if (sum == BLACK * inARow) { // black win
+   //                totalSum += Math.pow(10, inARow + 0.5);
+   //             } else if (sum == WHITE * inARow) { // white win
+   //                if (inARow == 4) {
+   //                   totalSum -= Math.pow(10, inARow + 2);
+   //                } else if (inARow == 3) {
+   //                   totalSum -= Math.pow(10, inARow + 1);
+   //                } else {
+   //                   totalSum -= Math.pow(10, inARow);
+   //                }
+   //             }
    }
       
    public int minimax(byte boardWithVirtualMove[][], boolean isMaximizer, int depth, int alpha, int beta, int movePlayedRow, int movePlayedCol) {
-      if (getWinner(board) == BLACK) {
+      if (getWinner(boardWithVirtualMove) == BLACK) {
          return 2000000000;
-      } else if (getWinner(board) == WHITE) {
+      } else if (getWinner(boardWithVirtualMove) == WHITE) {
          return -2000000000;
-      } else if (getWinner(board) == -1) {
+      } else if (getWinner(boardWithVirtualMove) == -1) {
          return 0;
       }
       
@@ -337,18 +352,16 @@ public class Gomoku {
          int score = 0; 
          score += getBoardScore(boardWithVirtualMove, 4);
          score += getBoardScore(boardWithVirtualMove, 3);
-         score += getBoardScore(boardWithVirtualMove, 2);
-         score += getBoardScore(boardWithVirtualMove, 5);
-         
+         //score += getBoardScore(boardWithVirtualMove, 2);
          return score;
       } else {
       
          // byte tempBoard[][] = new byte[NUMROW][NUMCOL];
-//          for (int i = 0; i < NUMROW; i++) {
-//             for (int j = 0; j < NUMCOL; j++) {
-//                tempBoard[i][j] = boardWithVirtualMove[i][j];
-//             }
-//          }
+      //          for (int i = 0; i < NUMROW; i++) {
+      //             for (int j = 0; j < NUMCOL; j++) {
+      //                tempBoard[i][j] = boardWithVirtualMove[i][j];
+      //             }
+      //          }
       
          if (isMaximizer) {
             int bestValue = -1000000000;
@@ -431,9 +444,9 @@ public class Gomoku {
       long startTime = System.nanoTime();
       
       if (isMax) {
-         bestMoveValueSoFar = -1000000000;
+         bestMoveValueSoFar = -1000000001;
       } else {
-         bestMoveValueSoFar = 1000000000;
+         bestMoveValueSoFar = 1000000001;
       }
       
       byte tempBoard[][] = new byte[NUMROW][NUMCOL];
@@ -443,19 +456,20 @@ public class Gomoku {
          }
       }
       if (isMax) {
-         for (int i = lastMoveRow - 1; i <= lastMoveRow + 1; i++) {
+         for (int i = lastMoveRow - 1; i <= lastMoveRow + 1; i++) {  //adjacent loop
             for (int j = lastMoveCol - 1; j <= lastMoveCol + 1; j++) {
                if (i >= 0 && i < NUMROW && j >= 0 && j < NUMCOL) {
-                  if (besidesPlayedSquare(i, j, tempBoard)) {
+                  //if (besidesPlayedSquare(i, j, tempBoard)) {
+                  if (tempBoard[i][j] == EMPTY) {
                      tempBoard[i][j] = BLACK; // virtual move
                      int testValue = minimax(tempBoard, false, depth, -1000000000, 1000000000, i, j);
-                  
+                     //System.out.println("considers " + i + " " + j + " with score " + testValue);
                      if (testValue > bestMoveValueSoFar) {
                         bestMoveValueSoFar = testValue; // the false is for is minimizer, because the maximizer has just played a virtual move
                         bestMoveRow = i;
                         bestMoveCol = j;
                      }
-                     tempBoard[i][j] = EMPTY; // reset virtual move
+                     tempBoard[i][j] = EMPTY; // reset virtual move    
                   }
                }
             }
@@ -465,9 +479,10 @@ public class Gomoku {
          for (int i = 0; i < NUMROW; i++) {
             for (int j = 0; j < NUMCOL; j++) {
                if (besidesPlayedSquare(i, j, tempBoard) && !adjacentLastPlayed(i, j, lastMoveRow, lastMoveCol)) {            
+               
                   tempBoard[i][j] = BLACK; // virtual move
                   int testValue = minimax(tempBoard, false, depth, -1000000000, 1000000000, i, j);
-                  
+                  //System.out.println("considers " + i + " " + j + " with score " + testValue);
                   if (testValue > bestMoveValueSoFar) {
                      bestMoveValueSoFar = testValue; // the false is for is minimizer, because the maximizer has just played a virtual move
                      bestMoveRow = i;
@@ -481,11 +496,12 @@ public class Gomoku {
                }
             }
          }
-      } else {
-         for (int i = lastMoveRow - 1; i <= lastMoveRow + 1; i++) {
+      } else { 
+         for (int i = lastMoveRow - 1; i <= lastMoveRow + 1; i++) {  //adjacent loop
             for (int j = lastMoveCol - 1; j <= lastMoveCol + 1; j++) {
                if (i >= 0 && i < NUMROW && j >= 0 && j < NUMCOL) {
-                  if (besidesPlayedSquare(i, j, tempBoard)) {
+                  //if (besidesPlayedSquare(i, j, tempBoard)) {
+                  if (tempBoard[i][j] == EMPTY) {
                      tempBoard[i][j] = WHITE; // virtual move
                      int testValue = minimax(tempBoard, true, depth, -1000000000, 1000000000, i, j);
                   
